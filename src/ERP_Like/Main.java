@@ -2,14 +2,12 @@ package ERP_Like;
 
 import Cadastros.Parceiros;
 
-import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
     private static int opcao=0;
-    private static Set<Parceiros> parceiros = new HashSet<>();
+    private static Parceiros parceiros = new Parceiros();
     private static Scanner leitor = new Scanner(System.in);
 
     public static void main(String[] args){
@@ -28,13 +26,13 @@ public class Main {
             leitor.nextLine();
 
             if(opcao == 1){
-                opcao1();
+                novoParceiro();
             }else if(opcao ==2){
-                opcao2();
+                listarParceiros();
             }else if(opcao ==3){
-                opcao3();
+                buscarParceiro();
             }else if(opcao ==4) {
-                opcao4();
+                remover();
             }else if(opcao !=9){
                 opcaoInvalida();
             }
@@ -43,15 +41,15 @@ public class Main {
 
     private static void menu(){
         System.out.println("1 - Cadastrar parceiro");
-        System.out.println("2 - Listar parceiros");
+        System.out.println("2 - Listar parceiro");
         System.out.println("3 - Buscar parceiro");
-        System.out.println("4 - Remover parceiro");
+        System.out.println("4 - Excluir parceiro por código.");
         System.out.println("9 - Sair");
         System.out.println();
         System.out.println("Escolha uma opção:");
     }
 
-    private static void opcao1(){
+    private static void novoParceiro(){
         limpar();
         System.out.println("Para cadastrar parceiro digite:");
         System.out.println();
@@ -65,29 +63,88 @@ public class Main {
         String email = leitor.nextLine();
         limpar();
         try {
-            parceiros.add(new Parceiros());
+            parceiros.cadastrarParceiro(nome, documento, email);
             System.out.println(" Cadastrado com sucesso!");
+        } catch(IllegalArgumentException e){
+            limpar();
+            System.out.println(e.getMessage());
         }
     }
 
-    private static void opcao2(){
-        System.out.println("opção 2");
+    private static void listarParceiros(){
+        limpar();
+        System.out.println("Lista de Parceiros");
+        System.out.println();
+        parceiros.listarParceiros();
         System.out.println();
         System.out.println("Dê enter para retornar.");
         leitor.nextLine();
         limpar();
     }
 
-    private static void opcao3(){
-        System.out.println("opção 3");
-        System.out.println();
-        System.out.println("Dê enter para retornar.");
-        leitor.nextLine();
+    private static void buscarParceiro(){
         limpar();
+        int busca =0;
+        System.out.println("Qual tipo de busca?");
+        System.out.println();
+        System.out.println("1 - Por nome.");
+        System.out.println("2 - Por documento.");
+        System.out.println();
+        try {
+            busca = leitor.nextInt();
+        } catch (InputMismatchException e){
+            limpar();
+            System.out.println("Não foi digitada uma opção válida! Cancelando busca.");
+        }
+        leitor.nextLine();
+        if(busca == 1){
+            limpar();
+            System.out.println("Digite o nome para buscar!");
+            String termo = leitor.nextLine();
+            System.out.println();
+            parceiros.buscaParceiroNome(termo);
+            System.out.println();
+            System.out.println("Dê enter para retornar:");
+            leitor.nextLine();
+            limpar();
+        }else if(busca ==2){
+            limpar();
+            System.out.println("Digite o documento para buscar!");
+            String termo = leitor.nextLine();
+            System.out.println();
+            System.out.println(parceiros.buscaParceiroDoc(termo));
+            System.out.println();
+            System.out.println("Dê enter para retornar:");
+            leitor.nextLine();
+            limpar();
+        }else if(busca != 0){
+            limpar();
+            System.out.println("Opção inválida, busca cancelada.");
+            System.out.println();
+        }
     }
 
-    private static void opcao4(){
-        System.out.println("opção 4");
+    private static void remover(){
+        limpar();
+        System.out.println("Digite o código do parceiro a ser excluído.");
+        int id=0;
+        try{
+            id= leitor.nextInt();
+            leitor.nextLine();
+        }catch (InputMismatchException e){
+            limpar();
+            System.out.println("Não foi digitada um código válido! Cancelando exclusão.");
+            id=0;
+        }
+        if(id!=0) {
+            boolean val = parceiros.removerParceiro(id);
+            if (val) {
+                System.out.println("Parceiro removido com sucesso.");
+            } else {
+                System.out.println("Parceiro não encontrado.");
+                System.out.println("Exclusão cancelada.");
+            }
+        }
         System.out.println();
         System.out.println("Dê enter para retornar.");
         leitor.nextLine();
