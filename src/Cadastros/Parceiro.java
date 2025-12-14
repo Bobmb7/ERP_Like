@@ -53,13 +53,16 @@ public class Parceiro {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+
         Parceiro parceiros = (Parceiro) o;
         return Objects.equals(documento, parceiros.documento);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(documento);
+        return Objects.hash(documento);
     }
 }
