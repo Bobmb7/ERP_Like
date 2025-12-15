@@ -2,7 +2,7 @@ package Cadastros;
 
 import java.util.Objects;
 
-public class Parceiro {
+public abstract class Parceiro {
     private final int id;
     private static int ult_id=0;
     private String nome;
@@ -48,8 +48,20 @@ public class Parceiro {
     }
 
     String getInfo(){
-        return "Parceiro: "+id+ " - " +nome+" - "+documento+" - "+email +" ;" ;
+        return "Parceiro: "+id+ " - " +nome+" - "+documento+" - "+email + " ;" ;
     }
+
+    String infoCompleta(){
+        return "---\n ID: "+id+"\n Tipo: " +getTipo()+"\n Nome: "+nome
+                +"\n Documento: " +documento+"\n Permite Crédito:"+ permiteCredito()
+                +"\n E-mail: "+ email + "\n ---";
+    }
+
+    public abstract String getTipo();
+
+    public abstract String permiteCredito();
+
+    public abstract boolean permCred();
 
     @Override
     public boolean equals(Object o) {

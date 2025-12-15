@@ -9,8 +9,16 @@ import java.util.Set;
 public class Parceiros{
     private static Set<Parceiro> parceiros = new HashSet<>();
 
-    public void cadastrarParceiro(String nome, String documento, String email){
-        parceiros.add(new Parceiro(nome, documento, email));
+    public void cadastrarCliente(String nome, String documento, String email){
+        parceiros.add(new ParceiroCliente(nome, documento, email));
+    }
+
+    public void cadastrarFornecedor(String nome, String documento, String email){
+        parceiros.add(new ParceiroFornecedor(nome, documento, email));
+    }
+
+    public void cadastrarTransp(String nome, String documento, String email){
+        parceiros.add(new ParceiroTransp(nome, documento, email));
     }
 
     public void listarParceiros(){

@@ -51,7 +51,35 @@ public class Main {
 
     private static void novoParceiro(){
         limpar();
-        System.out.println("Para cadastrar parceiro digite:");
+        System.out.println("Qual tipo de parceiro quer cadastrar? \n");
+        System.out.println("1 - Cliente");
+        System.out.println("2 - Fornecedor");
+        System.out.println("3 - Transportadora");
+        int tipo=0;
+        try {
+            tipo = leitor.nextInt();
+        } catch (InputMismatchException e){
+            limpar();
+            System.out.println("Não foi digitada uma opção válida! Cancelando cadastro.");
+        }
+        leitor.nextLine();
+        if(tipo ==1){
+            novoCliente();
+        }else if(tipo==2){
+            novoFornecedor();
+        }else if(tipo==3){
+            novaTransp();
+        }else if(tipo!=0){
+            limpar();
+            System.out.println("Opção inválida, cadastro cancelado.");
+            System.out.println();
+        }
+
+    }
+
+    private static void novoCliente(){
+        limpar();
+        System.out.println("Para cadastrar cliente digite:");
         System.out.println();
         System.out.println(" Nome");
         String nome = leitor.nextLine();
@@ -63,8 +91,52 @@ public class Main {
         String email = leitor.nextLine();
         limpar();
         try {
-            parceiros.cadastrarParceiro(nome, documento, email);
-            System.out.println(" Cadastrado com sucesso!");
+            parceiros.cadastrarCliente(nome, documento, email);
+            System.out.println(" Cliente cadastrado com sucesso!");
+        } catch(IllegalArgumentException e){
+            limpar();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void novoFornecedor(){
+        limpar();
+        System.out.println("Para cadastrar fornecedor digite:");
+        System.out.println();
+        System.out.println(" Nome");
+        String nome = leitor.nextLine();
+        System.out.println();
+        System.out.println(" Documento");
+        String documento = leitor.nextLine();
+        System.out.println();
+        System.out.println(" E-mail");
+        String email = leitor.nextLine();
+        limpar();
+        try {
+            parceiros.cadastrarFornecedor(nome, documento, email);
+            System.out.println(" Fornecedor cadastrado com sucesso!");
+        } catch(IllegalArgumentException e){
+            limpar();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void novaTransp(){
+        limpar();
+        System.out.println("Para cadastrar transportadora digite:");
+        System.out.println();
+        System.out.println(" Nome");
+        String nome = leitor.nextLine();
+        System.out.println();
+        System.out.println(" Documento");
+        String documento = leitor.nextLine();
+        System.out.println();
+        System.out.println(" E-mail");
+        String email = leitor.nextLine();
+        limpar();
+        try {
+            parceiros.cadastrarFornecedor(nome, documento, email);
+            System.out.println(" Transportadora cadastrada com sucesso!");
         } catch(IllegalArgumentException e){
             limpar();
             System.out.println(e.getMessage());
