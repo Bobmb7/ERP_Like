@@ -51,7 +51,7 @@ public abstract class Parceiro {
         return "Parceiro: "+id+ " - " +nome+" - "+documento+" - "+email + " ;" ;
     }
 
-    public abstract String getinfoCompleta();
+    public abstract String getInfoCompleta();
 
     public abstract String getTipo();
 

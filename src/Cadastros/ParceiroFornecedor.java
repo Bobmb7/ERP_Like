@@ -7,7 +7,7 @@ public class ParceiroFornecedor extends Parceiro {
     }
 
     @Override
-    public String getinfoCompleta() {
+    public String getInfoCompleta() {
         return "---\n ID: "+id+"\n Tipo: " +getTipo()+"\n Nome: "+nome
                 +"\n Documento: " +documento+"\n Permite Crédito: Não"
                 +"\n E-mail: "+ email + "\n ---";

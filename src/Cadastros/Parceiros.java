@@ -8,7 +8,7 @@ import java.util.Set;
 public class Parceiros{
     private static Set<Parceiro> parceiros = new HashSet<>();
 
-    boolean adicionar(Parceiro parceiro){
+    public boolean adicionar(Parceiro parceiro){
         try {
             parceiros.add(parceiro);
             return true;
@@ -41,7 +41,7 @@ public class Parceiros{
     public String buscaPorDoc(String termo){
         for (Parceiro parceiro : parceiros) {
             if(parceiro.getDocumento().equals(termo)){
-                return parceiro.getInfo();
+                return parceiro.getInfoCompleta();
             }
         }
         return "Não foi encontrado nenhum parceiro com esse documento!";

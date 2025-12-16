@@ -1,9 +1,11 @@
 package ERP_Like;
 
 import Cadastros.CadastraParceiro;
+import Cadastros.Parceiro;
 import Cadastros.Parceiros;
 
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MenuParceiro {
@@ -83,8 +85,14 @@ public class MenuParceiro {
             String email = leitor.nextLine();
             limpar();
             try {
-                parceiros.add(new CadastraParceiro(tipo,nome, documento, email));
-                System.out.println(" Cliente cadastrado com sucesso!");
+                Parceiro novo = CadastraParceiro.ciar(tipo,nome,documento,email);
+                boolean status = parceiros.adicionar(novo);
+
+                if(status){
+                    System.out.println("Parceiro cadastrado com sucesso!");
+                }else {
+                    System.out.println("Documento já cadastro! Cadastro cancelado.");
+                }
             } catch(IllegalArgumentException e){
                 limpar();
                 System.out.println(e.getMessage());
@@ -92,11 +100,7 @@ public class MenuParceiro {
         }
     }
 
-    private static void novoCliente(){
-
-    }
-
-        private static void listarParceiros(){
+    private static void listarParceiros(){
         limpar();
         System.out.println("Lista de Parceiros");
         System.out.println();
