@@ -9,12 +9,7 @@ public class Parceiros{
     private static Set<Parceiro> parceiros = new HashSet<>();
 
     public boolean adicionar(Parceiro parceiro){
-        try {
-            parceiros.add(parceiro);
-            return true;
-        } catch (IllegalArgumentException e){
-            throw new IllegalArgumentException(e.getMessage());
-        }
+        return parceiros.add(parceiro);
     }
 
     public void listar(){
