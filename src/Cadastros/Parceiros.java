@@ -1,6 +1,5 @@
 package Cadastros;
 
-import javax.lang.model.type.MirroredTypeException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -9,25 +8,22 @@ import java.util.Set;
 public class Parceiros{
     private static Set<Parceiro> parceiros = new HashSet<>();
 
-    public void cadastrarCliente(String nome, String documento, String email){
-        parceiros.add(new ParceiroCliente(nome, documento, email));
+    boolean adicionar(Parceiro parceiro){
+        try {
+            parceiros.add(parceiro);
+            return true;
+        } catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
-    public void cadastrarFornecedor(String nome, String documento, String email){
-        parceiros.add(new ParceiroFornecedor(nome, documento, email));
-    }
-
-    public void cadastrarTransp(String nome, String documento, String email){
-        parceiros.add(new ParceiroTransp(nome, documento, email));
-    }
-
-    public void listarParceiros(){
+    public void listar(){
         for(Parceiro parceiro : parceiros){
             System.out.println(parceiro.getInfo());
         }
     }
 
-    public void buscaParceiroNome(String termo){
+    public void buscaPorNome(String termo){
         List<Parceiro> p =
                 parceiros.stream()
                 .filter(parceiro -> parceiro.getNome().contains(termo.toUpperCase()))
@@ -42,7 +38,7 @@ public class Parceiros{
         }
     }
 
-    public String buscaParceiroDoc(String termo){
+    public String buscaPorDoc(String termo){
         for (Parceiro parceiro : parceiros) {
             if(parceiro.getDocumento().equals(termo)){
                 return parceiro.getInfo();
@@ -51,7 +47,7 @@ public class Parceiros{
         return "Não foi encontrado nenhum parceiro com esse documento!";
     }
 
-    public boolean removerParceiro(int id){
+    public boolean remover(int id){
         Iterator<Parceiro> it = parceiros.iterator();
 
         while(it.hasNext()){

@@ -7,17 +7,19 @@ public class ParceiroCliente extends Parceiro{
     }
 
     @Override
+    public String getinfoCompleta() {
+        return "---\n ID: "+id+"\n Tipo: " +getTipo()+"\n Nome: "+nome
+                +"\n Documento: " +documento+"\n Permite Crédito: Sim"
+                +"\n E-mail: "+ email + "\n ---";
+    }
+
+    @Override
     public String getTipo() {
         return "CLIENTE";
     }
 
     @Override
-    public String permiteCredito() {
-        return "Sim";
-    }
-
-    @Override
-    public boolean permCred() {
+    public boolean permiteCredito() {
         return true;
     }
 

@@ -7,17 +7,19 @@ public class ParceiroTransp extends Parceiro{
     }
 
     @Override
+    public String getinfoCompleta() {
+        return "---\n ID: "+id+"\n Tipo: " +getTipo()+"\n Nome: "+nome
+                +"\n Documento: " +documento+"\n Permite Crédito: Não"
+                +"\n E-mail: "+ email + "\n ---";
+    }
+
+    @Override
     public String getTipo() {
         return "TRANSPORTADORA";
     }
 
     @Override
-    public String permiteCredito() {
-        return "Não";
-    }
-
-    @Override
-    public boolean permCred() {
+    public boolean permiteCredito() {
         return false;
     }
 }

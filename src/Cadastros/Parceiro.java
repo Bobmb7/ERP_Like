@@ -3,11 +3,11 @@ package Cadastros;
 import java.util.Objects;
 
 public abstract class Parceiro {
-    private final int id;
-    private static int ult_id=0;
-    private String nome;
-    private final String documento;
-    private String email;
+    final int id;
+    static int ult_id=0;
+    String nome;
+    final String documento;
+    String email;
 
     Parceiro(String nome, String documento, String email){
         if(documento == null || documento.equals(" ") || documento.isEmpty()){
@@ -51,17 +51,11 @@ public abstract class Parceiro {
         return "Parceiro: "+id+ " - " +nome+" - "+documento+" - "+email + " ;" ;
     }
 
-    String infoCompleta(){
-        return "---\n ID: "+id+"\n Tipo: " +getTipo()+"\n Nome: "+nome
-                +"\n Documento: " +documento+"\n Permite Crédito:"+ permiteCredito()
-                +"\n E-mail: "+ email + "\n ---";
-    }
+    public abstract String getinfoCompleta();
 
     public abstract String getTipo();
 
-    public abstract String permiteCredito();
-
-    public abstract boolean permCred();
+    public abstract boolean permiteCredito();
 
     @Override
     public boolean equals(Object o) {
