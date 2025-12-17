@@ -1,8 +1,12 @@
+/*
+ * Classe não utilizada pois os "tipos de parceiros" foram migrados para enum
+ * Durante Sprint 3-- ultimo commit válido (v0.2.04)
+ * */
 package Cadastros;
+@Deprecated
+public class ParceiroTransp extends Parceiro{
 
-public class ParceiroFornecedor extends Parceiro {
-
-    public ParceiroFornecedor(String nome, String documento, String email){
+    public ParceiroTransp(String nome, String documento, String email){
         super(nome, documento, email);
     }
 
@@ -15,7 +19,7 @@ public class ParceiroFornecedor extends Parceiro {
 
     @Override
     public String getTipo() {
-        return "FORNECEDOR";
+        return "TRANSPORTADORA";
     }
 
     @Override

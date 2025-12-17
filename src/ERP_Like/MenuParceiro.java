@@ -5,7 +5,6 @@ import Cadastros.Parceiro;
 import Cadastros.Parceiros;
 
 import java.util.InputMismatchException;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class MenuParceiro {
@@ -54,49 +53,37 @@ public class MenuParceiro {
 
     private static void novoParceiro(){
         limpar();
-        System.out.println("Qual tipo de parceiro quer cadastrar? \n");
+        System.out.println("Digite os dados do parceiro:");
+        System.out.println();
+        System.out.println(" Nome");
+        String nome = leitor.nextLine();
+        System.out.println();
+        System.out.println(" Documento");
+        String documento = leitor.nextLine();
+        System.out.println();
+        System.out.println(" E-mail");
+        String email = leitor.nextLine();
+        limpar();
+        System.out.println("Qual o tipo do parceiro?");
+        System.out.println("Separados por vírgula. ex ' 1,2 ' ");
+        System.out.println();
         System.out.println("1 - Cliente");
         System.out.println("2 - Fornecedor");
         System.out.println("3 - Transportadora");
-        int tipo=0;
+        String tipos = leitor.nextLine();
+        limpar();
         try {
-            tipo = leitor.nextInt();
-        } catch (InputMismatchException e){
-            limpar();
-            System.out.println("Não foi digitada uma opção válida! Cancelando cadastro.");
-        }
-        leitor.nextLine();
+            Parceiro novo = CadastraParceiro.ciar(tipos,nome,documento,email);
+            boolean status = parceiros.adicionar(novo);
 
-        if(tipo == 0) return;
-        else if ( tipo<1 || tipo>3) {
-            limpar();
-            System.out.println("Opção inválida! Não existe tipo de parceiro de código "+tipo+".");
-        }else {
-            limpar();
-            System.out.println("Digite os dados do parceiro:");
-            System.out.println();
-            System.out.println(" Nome");
-            String nome = leitor.nextLine();
-            System.out.println();
-            System.out.println(" Documento");
-            String documento = leitor.nextLine();
-            System.out.println();
-            System.out.println(" E-mail");
-            String email = leitor.nextLine();
-            limpar();
-            try {
-                Parceiro novo = CadastraParceiro.ciar(tipo,nome,documento,email);
-                boolean status = parceiros.adicionar(novo);
-
-                if(status){
-                    System.out.println("Parceiro cadastrado com sucesso!");
-                }else {
-                    System.out.println("Documento já cadastro! Cadastro cancelado.");
-                }
-            } catch(IllegalArgumentException e){
-                limpar();
-                System.out.println(e.getMessage());
+            if(status){
+                System.out.println("Parceiro cadastrado com sucesso!");
+            }else {
+                System.out.println("Documento já cadastro! Cadastro cancelado.");
             }
+        } catch(IllegalArgumentException e){
+            limpar();
+            System.out.println(e.getMessage());
         }
     }
 

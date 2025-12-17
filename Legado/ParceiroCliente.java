@@ -1,5 +1,9 @@
+/*
+* Classe não utilizada pois os "tipos de parceiros" foram migrados para enum
+* Durante Sprint 3-- ultimo commit válido (v0.2.04)
+* */
 package Cadastros;
-
+@Deprecated
 public class ParceiroCliente extends Parceiro{
 
     public ParceiroCliente(String nome, String documento, String email){

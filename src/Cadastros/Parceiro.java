@@ -1,13 +1,17 @@
 package Cadastros;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public abstract class Parceiro {
+public class Parceiro {
     final int id;
     static int ult_id=0;
     String nome;
     final String documento;
     String email;
+    Set<TipoParc> tipos = new HashSet<>();
 
     Parceiro(String nome, String documento, String email){
         if(documento == null || documento.equals(" ") || documento.isEmpty()){
@@ -21,6 +25,10 @@ public abstract class Parceiro {
             this.documento = documento.toUpperCase();
             this.email = email.toLowerCase();
         }
+    }
+
+    public void addTipo(TipoParc tipo){
+        tipos.add(tipo);
     }
 
     void setNome(String nome) {
@@ -48,14 +56,23 @@ public abstract class Parceiro {
     }
 
     String getInfo(){
-        return "Parceiro: "+id+ " - " +nome+" - "+documento+" - "+email + " ;" ;
+        return "Parceiro: "+id+ " - " +nome+" - "+documento+" - "+email +" - ["+getTipo() +"] ;" ;
     }
 
-    public abstract String getInfoCompleta();
+    public String getInfoCompleta(){
+        return "---\n ID: "+id+"\n Tipo: " +getTipo()+"\n Nome: "+nome
+                +"\n Documento: " +documento+"\n Permite Crédito: Sim"
+                +"\n E-mail: "+ email + "\n ---";
+    };
 
-    public abstract String getTipo();
+    public String getTipo(){
+        return tipos.stream().map(TipoParc::name).distinct().sorted()
+                .collect(Collectors.joining(", "));
+    };
 
-    public abstract boolean permiteCredito();
+    public boolean permiteCredito(){
+        return tipos.stream().anyMatch(TipoParc::isPermCred);
+    };
 
     @Override
     public boolean equals(Object o) {
